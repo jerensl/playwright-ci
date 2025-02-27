@@ -13,6 +13,9 @@ importers:
       '@playwright/test':
         specifier: ^1.50.1
         version: 1.50.1
+      '@types/node':
+        specifier: ^22.13.5
+        version: 22.13.5
       typescript:
         specifier: ^5.7.3
         version: 5.7.3
@@ -23,6 +26,9 @@ packages:
     resolution: {integrity: sha512-Jii3aBg+CEDpgnuDxEp/h7BimHcUTDlpEtce89xEumlJ5ef2hqepZ+PWp1DDpYC/VO9fmWVI1IlEaoI5fK9FXQ==}
     engines: {node: '>=18'}
     hasBin: true
+
+  '@types/node@22.13.5':
+    resolution: {integrity: sha512-+lTU0PxZXn0Dr1NBtC7Y8cR21AJr87dLLU953CWA6pMxxv/UDc7jYAY90upcrie1nRcD6XNG5HOYEDtgW5TxAg==}
 
   fsevents@2.3.2:
     resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
@@ -44,11 +50,18 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
+  undici-types@6.20.0:
+    resolution: {integrity: sha512-Ny6QZ2Nju20vw1SRHe3d9jVu6gJ+4e3+MMpqu7pqE5HT6WsTSlce++GQmK5UXS8mzV8DSYHrQH+Xrf2jVcuKNg==}
+
 snapshots:
 
   '@playwright/test@1.50.1':
     dependencies:
       playwright: 1.50.1
+
+  '@types/node@22.13.5':
+    dependencies:
+      undici-types: 6.20.0
 
   fsevents@2.3.2:
     optional: true
@@ -62,3 +75,5 @@ snapshots:
       fsevents: 2.3.2
 
   typescript@5.7.3: {}
+
+  undici-types@6.20.0: {}

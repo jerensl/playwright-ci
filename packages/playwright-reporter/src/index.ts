@@ -18,6 +18,16 @@ class MyReporter implements Reporter {
         onEnd(result: FullResult) {
                 console.log(`Finished the run: ${result.status}`);
         }
+
+        onStdErr(chunk: string | Buffer, _test: TestCase, _result: TestResult) {
+                const text = chunk.toString('utf-8');
+                process.stderr.write(text);
+        }
+
+        onStdOut(chunk: string | Buffer, _test: TestCase, _result: TestResult) {
+                const text = chunk.toString('utf-8');
+                process.stdout.write(text);
+        }
 }
 
 export default MyReporter;
