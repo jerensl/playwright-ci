@@ -1,11 +1,12 @@
 {
-  "name": "playwright-reporter",
+  "name": "@playwright-ci-reporter",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "ncc run src/index.ts",
-    "build": "ncc build src/index.ts -o dist/app --minify"
+    "build": "ncc build src/index.ts -o ./dist --minify"
   },
   "keywords": [],
   "author": "",
