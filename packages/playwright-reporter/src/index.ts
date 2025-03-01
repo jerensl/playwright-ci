@@ -1,10 +1,17 @@
 import type {
         FullConfig, FullResult, Reporter, Suite, TestCase, TestResult
 } from '@playwright/test/reporter';
+import LoggerFactory, { ILogger } from "./logging"
 
 class MyReporter implements Reporter {
+        readonly logger: ILogger
+
+        constructor() {
+                this.logger = LoggerFactory.createLogger("single")
+        }
+
         onBegin(config: FullConfig, suite: Suite) {
-                console.log(`Starting the run with ${suite.allTests().length} tests`);
+                this.logger.info(`Test run with ${suite.allTests().length} tests`)
         }
 
         onTestBegin(test: TestCase, result: TestResult) {
