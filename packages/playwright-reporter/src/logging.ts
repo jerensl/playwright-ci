@@ -39,22 +39,22 @@ export class MultiLineLogger extends Logger {
                 process.stdout.write(`${this.getTime(dayjs())} ${message}\n`)
         }
         info(message: string): void {
-                process.stdout.write(`${this.getTime(dayjs())}${this.blue} [Info]: ${this.reset}${message}\n`)
+                process.stdout.write(`${this.getTime(dayjs())}${this.blue} [INFO]: ${this.reset}${message}\n`)
         }
         test(project: string, message: string): void {
-                process.stdout.write(`${this.getTime(dayjs())}${this.blue} [Test]:${this.reset} ${this.purple}[${project}]${this.reset} ${message}\n`)
+                process.stdout.write(`${this.getTime(dayjs())}${this.blue} [TEST]:${this.reset} ${this.purple}[${project}]${this.reset} ${message}\n`)
         }
         warn(message: string): void {
-                process.stdout.write(`${this.getTime(dayjs())}${this.yellow} [Warn]: ${this.reset}${message}\n`)
+                process.stdout.write(`${this.getTime(dayjs())}${this.yellow} [WARN]: ${this.reset}${message}\n`)
         }
         debug(message: string): void {
-                process.stdout.write(`${this.getTime(dayjs())}${this.yellow} [Debug]: ${this.reset}${message}\n`)
+                process.stdout.write(`${this.getTime(dayjs())}${this.yellow} [DEBUG]: ${this.reset}${message}\n`)
         }
         success(project: string, message: string): void {
-                process.stdout.write(`${this.getTime(dayjs())}${this.green} [Success]:${this.reset} ${this.purple}[${project}]${this.reset} ${message}\n`)
+                process.stdout.write(`${this.getTime(dayjs())}${this.green} [PASS]:${this.reset} ${this.purple}[${project}]${this.reset} ${message}\n`)
         }
         error(project: string, message: string): void {
-                process.stdout.write(`${this.getTime(dayjs())}${this.red} [Error]:${this.reset} ${this.purple}[${project}]${this.reset} ${message}\n`)
+                process.stdout.write(`${this.getTime(dayjs())}${this.red} [FAIL]:${this.reset} ${this.purple}[${project}]${this.reset} ${message}\n`)
         }
 }
 
@@ -70,38 +70,38 @@ export class SingleLineLogger extends Logger {
                 process.stdout.moveCursor(0, -1)
                 process.stdout.clearLine(0)
                 process.stdout.cursorTo(0)
-                process.stdout.write(`${this.getTime(dayjs())}${this.blue} [Info]: ${this.reset}${message}\n`)
+                process.stdout.write(`${this.getTime(dayjs())}${this.blue} [INFO]: ${this.reset}${message}\n`)
         }
         test(project: string, message: string): void {
                 process.stdout.moveCursor(0, -1)
                 process.stdout.clearLine(0)
                 process.stdout.cursorTo(0)
-                process.stdout.write(`${this.getTime(dayjs())}${this.blue} [Test]:${this.reset} ${this.purple}[${project}]${this.reset} ${message}\n`)
+                process.stdout.write(`${this.getTime(dayjs())}${this.blue} [TEST]:${this.reset} ${this.purple}[${project}]${this.reset} ${message}\n`)
         }
         warn(message: string): void {
                 process.stdout.moveCursor(0, -1)
                 process.stdout.clearLine(0)
                 process.stdout.cursorTo(0)
-                process.stdout.write(`${this.getTime(dayjs())}${this.yellow} [Warn]: ${this.reset}${message}\n`)
+                process.stdout.write(`${this.getTime(dayjs())}${this.yellow} [WARN]: ${this.reset}${message}\n`)
         }
         debug(message: string): void {
                 process.stdout.moveCursor(0, -1)
                 process.stdout.clearLine(0)
                 process.stdout.cursorTo(0)
-                process.stdout.write(`${this.getTime(dayjs())}${this.yellow} [Debug]: ${this.reset}${message}\n`)
+                process.stdout.write(`${this.getTime(dayjs())}${this.yellow} [DEBUG]: ${this.reset}${message}\n`)
         }
         success(project: string, message: string): void {
                 process.stdout.moveCursor(0, -1)
                 process.stdout.clearLine(0)
                 process.stdout.cursorTo(0)
-                process.stdout.write(`${this.getTime(dayjs())}${this.green} [Success]:${this.reset} ${this.purple}[${project}]${this.reset} ${message}\n`)
+                process.stdout.write(`${this.getTime(dayjs())}${this.green} [PASS]:${this.reset} ${this.purple}[${project}]${this.reset} ${message}\n`)
 
         }
         error(project: string, message: string): void {
                 process.stdout.moveCursor(0, -1)
                 process.stdout.clearLine(0)
                 process.stdout.cursorTo(0)
-                process.stdout.write(`${this.getTime(dayjs())}${this.red} [Error]:${this.reset} ${this.purple}[${project}]${this.reset} ${message}\n`)
+                process.stdout.write(`${this.getTime(dayjs())}${this.red} [FAIL]:${this.reset} ${this.purple}[${project}]${this.reset} ${message}\n`)
         }
 }
 
