@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "pnpm -r --filter='./packages/*' run build",
+    "reporter:build": "pnpm -r --filter='./packages/playwright-reporter' run build",
+    "reporter:demo:example": "pnpm -r --filter='./examples/nextapp' test:e2e:docker"
+
   },
   "keywords": [],
   "author": "",

@@ -107,7 +107,7 @@ export class SingleLineLogger extends Logger {
 
 export default class LoggerFactory {
         public static createLogger(type: string): Logger {
-                if (type === "single") {
+                if (type === "singleline") {
                         return new SingleLineLogger()
                 } else {
                         return new MultiLineLogger()
