@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "test:e2e:docker": "PW_TEST_CONNECT_WS_ENDPOINT=ws://localhost:8443/ npx playwright test",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

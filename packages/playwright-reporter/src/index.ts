@@ -1,15 +1,25 @@
 import type {
-        FullConfig, FullResult, Reporter, Suite, TestCase, TestResult, FullProject
+        FullConfig, FullResult, Reporter, Suite, TestCase, TestResult
 } from '@playwright/test/reporter';
 import LoggerFactory, { Logger } from "./logging"
 import Utils, { IUtility } from "./utils"
 
-class MyReporter implements Reporter {
+interface PlaywrightCIOptions {
+        logType?: "singleline" | "multiline";
+}
+
+class PlaywrightCI implements Reporter {
         readonly logger: Logger
         readonly utils: IUtility
 
-        constructor() {
-                this.logger = LoggerFactory.createLogger("multiline")
+        constructor(private options: PlaywrightCIOptions = {
+                logType: "singleline"
+        }
+        ) {
+                if (typeof options.logType === "undefined") {
+                        options.logType = "singleline"
+                }
+                this.logger = LoggerFactory.createLogger(options.logType)
                 this.utils = new Utils()
         }
 
@@ -44,4 +54,4 @@ class MyReporter implements Reporter {
         }
 }
 
-export default MyReporter;
+export default PlaywrightCI;
