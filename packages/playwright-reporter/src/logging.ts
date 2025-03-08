@@ -67,10 +67,7 @@ export class SingleLineLogger extends Logger {
                 process.stdout.write(`${this.getTime(dayjs())} ${message}\n\n`)
         }
         info(message: string): void {
-                process.stdout.moveCursor(0, -1)
-                process.stdout.clearLine(0)
-                process.stdout.cursorTo(0)
-                process.stdout.write(`${this.getTime(dayjs())}${this.blue} [INFO]: ${this.reset}${message}\n`)
+                process.stdout.write(`${this.getTime(dayjs())}${this.blue} [INFO]: ${this.reset}${message}\n\n`)
         }
         test(project: string, message: string): void {
                 process.stdout.moveCursor(0, -1)
@@ -94,14 +91,14 @@ export class SingleLineLogger extends Logger {
                 process.stdout.moveCursor(0, -1)
                 process.stdout.clearLine(0)
                 process.stdout.cursorTo(0)
-                process.stdout.write(`${this.getTime(dayjs())}${this.green} [PASS]:${this.reset} ${this.purple}[${project}]${this.reset} ${message}\n`)
+                process.stdout.write(`${this.getTime(dayjs())}${this.green} [PASS]:${this.reset} ${this.purple}[${project}]${this.reset} ${message}\n\n`)
 
         }
         error(project: string, message: string): void {
                 process.stdout.moveCursor(0, -1)
                 process.stdout.clearLine(0)
                 process.stdout.cursorTo(0)
-                process.stdout.write(`${this.getTime(dayjs())}${this.red} [FAIL]:${this.reset} ${this.purple}[${project}]${this.reset} ${message}\n`)
+                process.stdout.write(`${this.getTime(dayjs())}${this.red} [FAIL]:${this.reset} ${this.purple}[${project}]${this.reset} ${message}\n\n`)
         }
 }
 
