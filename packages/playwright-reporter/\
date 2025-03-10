@@ -1,0 +1,31 @@
+class TestPlan {
+    private passed: number
+    private fail: number
+    private flaky: number
+    private skip: number
+
+    constructor() {
+        this.passed = 0;
+        this.fail = 0;
+        this.flaky = 0;
+        this.skip = 0;
+    }
+
+    get Passed() {
+        return this.passed
+    }
+
+    get Fail() {
+        return this.fail
+    }
+
+    get Flaky() {
+        return this.flaky
+    }
+
+    get Skip() {
+        return this.skip
+    }
+}
+
+export default TestPlan
