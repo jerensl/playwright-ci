@@ -1,10 +1,12 @@
+type IStatus = "passed" | "failed" | "timedOut" | "skipped" | "interrupted"
+
 export interface ITestPlan {
     Passed: number
     Fail: number
     Flaky: number
     Skip: number
 
-    Evaluate(status: "passed" | "failed" | "timedOut" | "skipped" | "interrupted"): void
+    Evaluate(status: IStatus, retry: number, maxRetry: number): void
 }
 
 class TestPlan implements ITestPlan {
@@ -36,14 +38,19 @@ class TestPlan implements ITestPlan {
         return this.skip
     }
 
-    Evaluate(status: "passed" | "failed" | "timedOut" | "skipped" | "interrupted"): void {
+    Evaluate(status: IStatus, retry: number, maxRetry: number): void {
         switch (status) {
             case "passed": {
-                this.passed++
+                if (retry > 1) {
+                    this.flaky++
+                    break
+                } this.passed++
                 break;
             }
             case "failed": {
-                this.fail++
+                if (retry === maxRetry) {
+                    this.fail++
+                }
                 break;
             }
             case "skipped": {
