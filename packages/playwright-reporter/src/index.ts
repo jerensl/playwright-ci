@@ -6,6 +6,7 @@ import Utils, { IUtility } from "./utils"
 import TestPlan, { ITestPlan } from "./domain"
 interface PlaywrightCIOptions {
     logType?: "singleline" | "multiline";
+    failureThreshold: number
 }
 
 class PlaywrightCI implements Reporter {
@@ -14,7 +15,8 @@ class PlaywrightCI implements Reporter {
     readonly info: ITestPlan
 
     constructor(private options: PlaywrightCIOptions = {
-        logType: "singleline"
+        logType: "singleline",
+        failureThreshold: 1
     }
     ) {
         if (typeof options.logType === "undefined") {
@@ -26,7 +28,7 @@ class PlaywrightCI implements Reporter {
     }
 
     onBegin(config: FullConfig, suite: Suite) {
-        this.logger.info(`Starting test run with ${this.utils.countUniqueSuites(suite)} suite(s) and ${this.utils.countUniqueTests(suite)} test(s).`)
+        this.logger.info(`Starting test run with ${this.utils.countUniqueSuites(suite)} suite(s) and ${this.utils.countUniqueTests(suite)} test(s) with ${config.workers} worker(s).`)
     }
 
     onTestBegin(test: TestCase, result: TestResult) {
@@ -34,16 +36,22 @@ class PlaywrightCI implements Reporter {
     }
 
     onTestEnd(test: TestCase, result: TestResult) {
-        this.info.Evaluate(result.status)
+        this.info.Evaluate(result.status, result.retry, test.retries)
         if (result.status === "passed") {
             this.logger.success(this.utils.getProjectName(test.parent), `Completed '${test.title}' within ${this.logger.formatTime(result.duration / 1000)} seconds.`);
         } else if (result.status === "failed") {
-            this.logger.error(this.utils.getProjectName(test.parent), `Error in '${test.title}': ${result.error}. Execution time: ${this.logger.formatTime(result.duration / 1000)} seconds.`)
+            this.logger.error(this.utils.getProjectName(test.parent), `Error in '${test.title}'. Execution time: ${this.logger.formatTime(result.duration / 1000)} seconds.\n ${result.error?.message}`)
         }
     }
 
     onEnd(result: FullResult) {
         this.logger.info(`Finished test run: ✅ ${this.info.Passed} passed | ❌ ${this.info.Fail} failed | ⏭  ${this.info.Skip} skipped`);
+
+        if (this.info.Fail >= this.options.failureThreshold) {
+            process.exit(1)
+        } else {
+            process.exit(0)
+        }
     }
 
     onStdErr(chunk: string | Buffer, _test: TestCase, _result: TestResult) {
