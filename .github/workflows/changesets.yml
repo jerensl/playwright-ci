@@ -44,16 +44,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Extract Changelog for Release Notes
-        run: |
-          TAG=$(node -p "require('./package.json').version")
-          awk '/## \[/{flag=0} /## \['"$TAG"'\]/{flag=1} flag' CHANGELOG.md > release-notes.md
-        shell: bash
-
-      - name: Create GitHub Release with Changelog
-        run: |
-          TAG=$(node -p "require('./package.json').version")
-          gh release create "v$TAG" --title "Release v$TAG" --notes-file release-notes.md
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
