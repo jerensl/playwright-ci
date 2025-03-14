@@ -45,6 +45,7 @@ jobs:
         uses: changesets/action@v1
         with:
           branch: main
+          setupGitUser: "jerensl-bot[bot]"
           commit: "chore: update versions"
           title: "chore: update versions"
           publish: pnpm ci:publish
