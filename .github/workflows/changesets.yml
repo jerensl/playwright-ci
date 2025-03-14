@@ -12,6 +12,13 @@ jobs:
   version:
     timeout-minutes: 15
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+      checks: write
+      issues: write
+      packages: write
+      pull-requests: write
     steps:
       - name: Checkout code repository
         uses: actions/checkout@v4
@@ -24,31 +31,17 @@ jobs:
         with:
           node-version: 20
           cache: 'pnpm'
- 
-      - name: Decode the GitHub App Private Key
-        id: decode
-        run: |
-          private_key=$(echo "${{ secrets.GH_APP_PRIVATE_KEY }}" | base64 -d | awk 'BEGIN {ORS="\\n"} {print}' | head -c -2) &> /dev/null
-          echo "::add-mask::$private_key"
-          echo "private-key=$private_key" >> "$GITHUB_OUTPUT"
-
-      - uses: actions/create-github-app-token@v1
-        id: app-token
-        with:
-          app-id: ${{ secrets.GH_APP_ID }}
-          private-key: ${{ steps.decode.outputs.private-key }}
-
+      
       - name: Install dependencies
         run: pnpm install
-
+      
       - name: Create and publish versions
         uses: changesets/action@v1
         with:
           branch: main
-          setupGitUser: false 
           commit: "chore: update versions"
           title: "chore: update versions"
           publish: pnpm ci:publish
         env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
