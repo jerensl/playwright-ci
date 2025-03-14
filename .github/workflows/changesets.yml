@@ -13,8 +13,12 @@ jobs:
     timeout-minutes: 15
     runs-on: ubuntu-latest
     permissions:
-      contents: write 
+      id-token: write
+      contents: write
+      checks: write
       issues: write
+      packages: write
+      pull-request: write    
     steps:
       - name: Checkout code repository
         uses: actions/checkout@v4
