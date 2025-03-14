@@ -64,9 +64,9 @@
 ## About The Project
 
 Running Playwright tests in CI/CD can be challenging when it comes to reporting, logs, and debugging. This library aims to:
-✅ Streamline test reports for better visibility.
-✅ Seamlessly integrate with GitHub Actions.
-✅ Enhance debugging with structured logs.
+  ✅ Streamline test reports for better visibility.
+  ✅ Seamlessly integrate with GitHub Actions.
+  ✅ Enhance debugging with structured logs.
 
 Use the `BLANK_README.md` to get started.
 
