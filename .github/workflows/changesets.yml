@@ -18,7 +18,6 @@ jobs:
       checks: write
       issues: write
       packages: write
-      pull-request: write    
     steps:
       - name: Checkout code repository
         uses: actions/checkout@v4
