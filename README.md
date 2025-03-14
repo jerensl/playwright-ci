@@ -63,10 +63,10 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Running Playwright tests in CI/CD can be challenging when it comes to reporting, logs, and debugging. This library aims to:
-  ✅ Streamline test reports for better visibility.
-  ✅ Seamlessly integrate with GitHub Actions.
-  ✅ Enhance debugging with structured logs.
+Running Playwright tests in CI/CD can be challenging when it comes to reporting, logs, and debugging. This library aims to:   
+✅ Streamline test reports for better visibility.   
+✅ Seamlessly integrate with GitHub Actions.    
+✅ Enhance debugging with structured logs.    
 
 Use the `BLANK_README.md` to get started.
 
@@ -101,25 +101,9 @@ This is an example of how to list things you need to use the software and how to
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+for installation via npm:   
    ```sh
-   git clone https://github.com/github_username/repo_name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
-5. Change git remote url to avoid accidental pushes to base project
-   ```sh
-   git remote set-url origin github_username/repo_name
-   git remote -v # confirm the changes
+   npm i -D @playwright-ci/reporter
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
