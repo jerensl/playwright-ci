@@ -17,7 +17,7 @@
   <h3 align="center">playwright-ci</h3>
 
   <p align="center">
-    An helper for visualize, logs, trace and reporting playwright test result on CI  
+    A monorepo for Playwright test reporting, logs, traces, and CI integration, with future GitHub Actions support.
     <br />
     <a href="https://github.com/jerensl/playwright-ci"><strong>Explore the docs »</strong></a>
     <br />
@@ -76,10 +76,11 @@ Use the `BLANK_README.md` to get started.
 
 ### Built With
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+This section highlights the key frameworks and libraries used to build this project. Add-ons and plugins are mentioned in the acknowledgments section. Here are a few examples:
 
 
 * [![Typescript][Typescript.org]][Typescript-url]
+* [![Playwright][Playwright.dev]][Playwright-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -88,22 +89,28 @@ This section should list any major frameworks/libraries used to bootstrap your p
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+Follow these steps to set up the reporter on your project and start using it.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+The following are a requirement in order to use @playwright-ci.  
+  - [NodeJS](https://nodejs.org/en) >= 18
 
 ### Installation
 
-for installation via npm:   
-   ```sh
+Install playwright-ci using your preferred package manager:   
+
+npm   
+  ```sh
    npm i -D @playwright-ci/reporter
+   ```
+pnpm   
+  ```sh
+   pnpm add i -D @playwright-ci/reporter
+   ```
+yarn   
+  ```sh
+  yarn add i -D @playwright-ci/reporter
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -113,9 +120,36 @@ for installation via npm:
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+After installing @playwright-ci/reporter, update your Playwright config to enable the reporter:
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+1. Update playwright.config.ts
+  Add @playwright-ci/reporter to the reporters section in your Playwright configuration file:
+  ```js
+  import { defineConfig } from '@playwright/test';
+
+  export default defineConfig({
+    reporter: '@playwright-ci/reporter',
+  });
+  ```   
+  Or, if you want costum configuration:
+  ```js
+  import { defineConfig } from '@playwright/test';
+
+  export default defineConfig({
+    reporter: [['@playwright-ci/reporter', {  
+        logType: "singleline",
+        failureThreshold: 1
+      }
+    ]],
+  });
+  ```
+2. Run Playwright tests
+  Execute your Playwright tests as usual:
+  ```sh
+  npx playwright test
+  ```   
+3. View Test Reports
+  The reports will be generated in the specified output folder (playwright-report by default). You can upload and analyze them in CI/CD pipelines.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -124,13 +158,10 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
+- [x] Setup changeset and release ci 
+- [x] Publish @playwright-ci/reporter to NPM registry 
+- [x] Add documentation on how to use @playwright-ci/reporter
+- [ ] Plan the target for version 1.0.0 
 
 See the [open issues](https://github.com/jerensl/playwright-ci/issues) for a full list of proposed features (and known issues).
 
@@ -210,4 +241,6 @@ Use this space to list resources you find helpful and would like to give credit 
 [product-screenshot]: images/screenshot.png
 [Typescript.org]: https://img.shields.io/badge/Typescript-0769AD?style=for-the-badge&logo=typescript&logoColor=white
 [Typescript-url]: https://www.typescriptlang.org 
+[Playwright.dev]: https://img.shields.io/badge/Playwright-%23e10098?style=for-the-badge&logo=playwright&logoColor=white
+[Playwright-url]: https://playwright.dev
 
