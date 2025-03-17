@@ -40,7 +40,7 @@ class PlaywrightCI implements Reporter {
         if (result.status === "passed") {
             this.logger.success(this.utils.getProjectName(test.parent), `Completed '${test.title}' within ${this.logger.formatTime(result.duration / 1000)} seconds.`);
         } else if (result.status === "failed") {
-            this.logger.error(this.utils.getProjectName(test.parent), `Error in '${test.title}'. Execution time: ${this.logger.formatTime(result.duration / 1000)} seconds.\n ${result.error?.message}`)
+            this.logger.error(this.utils.getProjectName(test.parent), `Error in '${test.title}'. Execution time: ${this.logger.formatTime(result.duration / 1000)} seconds. File: ${result.error?.location?.file} ${this.logger.formatError(`(Line ${result.error?.location?.line})`)}`)
         }
     }
 

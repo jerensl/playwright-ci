@@ -25,7 +25,9 @@ export abstract class Logger {
     formatTime(time: number) {
         return `${this.cyan}${time}${this.reset}`
     }
-
+    formatError(time: string) {
+        return `${this.red}${time}${this.reset}`
+    }
     raw(message: string): void { };
     info(message: string): void { };
     test(project: string, message: string): void { };
