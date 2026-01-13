@@ -39,7 +39,7 @@ class PlaywrightCI implements Reporter {
     );
   }
 
-  onTestBegin(test: TestCase, result: TestResult) {
+  onTestBegin(test: TestCase, _result: TestResult) {
     this.logger.test(
       this.utils.getProjectName(test.parent),
       `Started: ${test.title}`,
@@ -61,7 +61,7 @@ class PlaywrightCI implements Reporter {
     }
   }
 
-  onEnd(result: FullResult) {
+  onEnd(_result: FullResult) {
     this.logger.info(
       `Finished test run: ✅ ${this.info.Passed} passed | ❌ ${this.info.Fail} failed | ⏭  ${this.info.Skip} skipped`,
     );
