@@ -48,15 +48,16 @@ class PlaywrightCI implements Reporter {
 
   onTestEnd(test: TestCase, result: TestResult) {
     this.info.Evaluate(result.status, result.retry, test.retries);
+    const projectName = this.utils.getProjectName(test.parent);
     if (result.status === "passed") {
-      this.logger.success(
-        this.utils.getProjectName(test.parent),
-        `Completed '${test.title}' within ${this.logger.formatTime(result.duration / 1000)} seconds.`,
-      );
+      this.logger.successMessage(projectName, test.title, result.duration);
     } else if (result.status === "failed" && result.retry === test.retries) {
-      this.logger.error(
-        this.utils.getProjectName(test.parent),
-        `Error in '${test.title}'. Execution time: ${this.logger.formatTime(result.duration / 1000)} seconds. File: ${result.error?.location?.file} ${this.logger.formatError(`(Line ${result.error?.location?.line})`)}`,
+      this.logger.errorMessage(
+        projectName,
+        test.title,
+        result.error?.location?.file || "",
+        result.error?.location?.line || 0,
+        result.duration,
       );
     }
   }
