@@ -35,6 +35,18 @@ export abstract class Logger {
   debug(_message: string): void {}
   success(_project: string, _message: string): void {}
   error(_project: string, _message: string): void {}
+  successMessage(
+    _projectName: string,
+    _title: string,
+    _duration: number,
+  ): void {}
+  errorMessage(
+    _projectName: string,
+    _title: string,
+    _fileLocation: string,
+    _line: number,
+    _duration: number,
+  ): void {}
 }
 
 export class MultiLineLogger extends Logger {
@@ -128,6 +140,24 @@ export class SingleLineLogger extends Logger {
     process.stdout.cursorTo(0);
     process.stdout.write(
       `${this.getCurrentTime(dayjs())} ${this.red}[FAIL]:${this.reset} ${this.purple}[${project}]${this.reset} ${message}\n\n`,
+    );
+  }
+  successMessage(projectName: string, title: string, duration: number): void {
+    this.success(
+      projectName,
+      `Completed '${title}' within ${this.formatTime(duration / 1000)} seconds.`,
+    );
+  }
+  errorMessage(
+    projectName: string,
+    title: string,
+    fileLocation: string,
+    line: number,
+    duration: number,
+  ): void {
+    this.error(
+      projectName,
+      `Error in '${title}'. Execution time: ${this.formatTime(duration / 1000)} seconds. File: ${fileLocation} ${this.formatError(`(Line ${line})`)}`,
     );
   }
 }
