@@ -60,11 +60,12 @@ class PlaywrightCI implements Reporter {
         result.duration,
       );
     }
+    this.info.AccumulatedTestTime(result.duration);
   }
 
   onEnd(_result: FullResult) {
     this.logger.info(
-      `Finished test run: ✅ ${this.info.Passed} passed | ❌ ${this.info.Fail} failed | ⏭  ${this.info.Skip} skipped`,
+      `Finished test run: ✅ ${this.info.Passed} passed | ❌ ${this.info.Fail} failed | ⏭  ${this.info.Skip} skipped | Time: ${this.info.ElapsedTestTime}`,
     );
 
     if (this.info.Fail >= this.options.failureThreshold) {
