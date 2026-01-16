@@ -21,12 +21,12 @@ class PlaywrightCI implements Reporter {
 
   constructor(
     private options: PlaywrightCIOptions = {
-      logType: "singleline",
+      logType: "multiline",
       failureThreshold: 1,
     },
   ) {
     if (typeof options.logType === "undefined") {
-      options.logType = "singleline";
+      options.logType = "multiline";
     }
     this.logger = LoggerFactory.createLogger(options.logType);
     this.utils = new Utils();
