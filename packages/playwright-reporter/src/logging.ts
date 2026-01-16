@@ -28,25 +28,25 @@ export abstract class Logger {
   formatError(time: string) {
     return `${this.red}${time}${this.reset}`;
   }
-  raw(_message: string): void {}
-  info(_message: string): void {}
-  test(_project: string, _message: string): void {}
-  warn(_message: string): void {}
-  debug(_message: string): void {}
-  success(_project: string, _message: string): void {}
-  error(_project: string, _message: string): void {}
+  raw(_message: string): void { }
+  info(_message: string): void { }
+  test(_project: string, _message: string): void { }
+  warn(_message: string): void { }
+  debug(_message: string): void { }
+  success(_project: string, _message: string): void { }
+  error(_project: string, _message: string): void { }
   successMessage(
     _projectName: string,
     _title: string,
     _duration: number,
-  ): void {}
+  ): void { }
   errorMessage(
     _projectName: string,
     _title: string,
     _fileLocation: string,
     _line: number,
     _duration: number,
-  ): void {}
+  ): void { }
 }
 
 export class MultiLineLogger extends Logger {
@@ -89,6 +89,7 @@ export class MultiLineLogger extends Logger {
   }
 }
 
+// Do not use as it have data race
 export class SingleLineLogger extends Logger {
   constructor() {
     super();
