@@ -43,7 +43,8 @@ class TestPlan implements ITestPlan {
   }
 
   public get ElapsedTestTime() {
-    const totalSeconds = this.elapsedTestTime / 1000;
+    let totalSeconds = this.elapsedTestTime / 1000;
+    totalSeconds = Math.trunc(totalSeconds);
     if (totalSeconds < 60) {
       return `${totalSeconds}s`;
     }
@@ -63,11 +64,11 @@ class TestPlan implements ITestPlan {
   Evaluate(status: IStatus, retry: number, maxRetry: number): void {
     switch (status) {
       case "passed": {
-        if (retry > 1) {
+        if (retry > 0) {
           this.flaky++;
-          break;
+        } else {
+          this.passed++;
         }
-        this.passed++;
         break;
       }
       case "failed": {

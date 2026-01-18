@@ -10,7 +10,7 @@ import LoggerFactory, { Logger } from "./logging";
 import Utils, { IUtility } from "./utils";
 import TestPlan, { ITestPlan } from "./domain";
 interface PlaywrightCIOptions {
-  logType?: "singleline" | "multiline";
+  logType?: "default";
   failureThreshold: number;
 }
 
@@ -21,12 +21,12 @@ class PlaywrightCI implements Reporter {
 
   constructor(
     private options: PlaywrightCIOptions = {
-      logType: "multiline",
+      logType: "default",
       failureThreshold: 1,
     },
   ) {
     if (typeof options.logType === "undefined") {
-      options.logType = "multiline";
+      options.logType = "default";
     }
     this.logger = LoggerFactory.createLogger(options.logType);
     this.utils = new Utils();
@@ -39,12 +39,7 @@ class PlaywrightCI implements Reporter {
     );
   }
 
-  onTestBegin(test: TestCase, _result: TestResult) {
-    this.logger.test(
-      this.utils.getProjectName(test.parent),
-      `Started: ${test.title}`,
-    );
-  }
+  onTestBegin(_test: TestCase, _result: TestResult) { }
 
   onTestEnd(test: TestCase, result: TestResult) {
     this.info.Evaluate(result.status, result.retry, test.retries);
@@ -65,7 +60,7 @@ class PlaywrightCI implements Reporter {
 
   onEnd(_result: FullResult) {
     this.logger.info(
-      `Finished test run: ✅ ${this.info.Passed} passed | ❌ ${this.info.Fail} failed | ⏭  ${this.info.Skip} skipped | Time: ${this.info.ElapsedTestTime}`,
+      `Finished test run: ✅ ${this.info.Passed} passed | ⚠️ ${this.info.Flaky} flaky | ❌ ${this.info.Fail} failed | ⏭  ${this.info.Skip} skipped | Time: ${this.info.ElapsedTestTime}`,
     );
 
     if (this.info.Fail >= this.options.failureThreshold) {

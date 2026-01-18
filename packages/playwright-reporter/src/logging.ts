@@ -49,7 +49,7 @@ export abstract class Logger {
   ): void { }
 }
 
-export class MultiLineLogger extends Logger {
+export class DefaultLogger extends Logger {
   constructor() {
     super();
   }
@@ -59,88 +59,32 @@ export class MultiLineLogger extends Logger {
   }
   info(message: string): void {
     process.stdout.write(
-      `${this.getCurrentTime(dayjs())}${this.blue} [INFO]: ${this.reset}${message}\n`,
+      `${this.getCurrentTime(dayjs())} ${this.blue}[INFO]: ${this.reset}${message}\n`,
     );
   }
   test(project: string, message: string): void {
-    process.stdout.write(
-      `${this.getCurrentTime(dayjs())}${this.blue} [TEST]:${this.reset} ${this.purple}[${project}]${this.reset} ${message}\n`,
-    );
-  }
-  warn(message: string): void {
-    process.stdout.write(
-      `${this.getCurrentTime(dayjs())}${this.yellow} [WARN]: ${this.reset}${message}\n`,
-    );
-  }
-  debug(message: string): void {
-    process.stdout.write(
-      `${this.getCurrentTime(dayjs())}${this.yellow} [DEBUG]: ${this.reset}${message}\n`,
-    );
-  }
-  success(project: string, message: string): void {
-    process.stdout.write(
-      `${this.getCurrentTime(dayjs())}${this.green} [PASS]:${this.reset} ${this.purple}[${project}]${this.reset} ${message}\n`,
-    );
-  }
-  error(project: string, message: string): void {
-    process.stdout.write(
-      `${this.getCurrentTime(dayjs())}${this.red} [FAIL]:${this.reset} ${this.purple}[${project}]${this.reset} ${message}\n`,
-    );
-  }
-}
-
-// Do not use as it have data race
-export class SingleLineLogger extends Logger {
-  constructor() {
-    super();
-  }
-
-  raw(message: string): void {
-    process.stdout.write(`${this.getCurrentTime(dayjs())} ${message}\n\n`);
-  }
-  info(message: string): void {
-    process.stdout.write(
-      `${this.getCurrentTime(dayjs())} ${this.blue}[INFO]: ${this.reset}${message}\n\n`,
-    );
-  }
-  test(project: string, message: string): void {
-    process.stdout.moveCursor(0, -1);
-    process.stdout.clearLine(0);
-    process.stdout.cursorTo(0);
     process.stdout.write(
       `${this.getCurrentTime(dayjs())} ${this.blue}[TEST]:${this.reset} ${this.purple}[${project}]${this.reset} ${message}\n`,
     );
   }
   warn(message: string): void {
-    process.stdout.moveCursor(0, -1);
-    process.stdout.clearLine(0);
-    process.stdout.cursorTo(0);
     process.stdout.write(
       `${this.getCurrentTime(dayjs())} ${this.yellow}[WARN]:${this.reset} ${message}\n`,
     );
   }
   debug(message: string): void {
-    process.stdout.moveCursor(0, -1);
-    process.stdout.clearLine(0);
-    process.stdout.cursorTo(0);
     process.stdout.write(
       `${this.getCurrentTime(dayjs())} ${this.yellow}[DEBUG]:${this.reset} ${message}\n`,
     );
   }
   success(project: string, message: string): void {
-    process.stdout.moveCursor(0, -1);
-    process.stdout.clearLine(0);
-    process.stdout.cursorTo(0);
     process.stdout.write(
-      `${this.getCurrentTime(dayjs())} ${this.green}[PASS]:${this.reset} ${this.purple}[${project}]${this.reset} ${message}\n\n`,
+      `${this.getCurrentTime(dayjs())} ${this.green}[PASS]:${this.reset} ${this.purple}[${project}]${this.reset} ${message}\n`,
     );
   }
   error(project: string, message: string): void {
-    process.stdout.moveCursor(0, -1);
-    process.stdout.clearLine(0);
-    process.stdout.cursorTo(0);
     process.stdout.write(
-      `${this.getCurrentTime(dayjs())} ${this.red}[FAIL]:${this.reset} ${this.purple}[${project}]${this.reset} ${message}\n\n`,
+      `${this.getCurrentTime(dayjs())} ${this.red}[FAIL]:${this.reset} ${this.purple}[${project}]${this.reset} ${message}\n`,
     );
   }
   successMessage(projectName: string, title: string, duration: number): void {
@@ -164,11 +108,7 @@ export class SingleLineLogger extends Logger {
 }
 
 export default class LoggerFactory {
-  public static createLogger(type: string): Logger {
-    if (type === "singleline") {
-      return new SingleLineLogger();
-    } else {
-      return new MultiLineLogger();
-    }
+  public static createLogger(_type: string): Logger {
+    return new DefaultLogger();
   }
 }
